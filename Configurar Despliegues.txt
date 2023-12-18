@@ -1,0 +1,76 @@
+Como configurar para poder crear y hacer push a los repositorios de vps
+
+mkdir /var/repos && cd /var/repos
+
+mkdir [nombre-de-tu-repo].git && cd [nombre-de-tu-repo].git
+
+mkdir frontbox.git && cd frontbox.git
+git init --bare
+
+cd hooks
+
+nano post-receive
+-----------------------------------------
+#!/bin/sh
+
+set -e  # Esto hará que el script se detenga si hay algún error
+
+echo "Script ejecutado por: $USER"
+echo "Fecha y hora de ejecución: $(date)"
+echo "Directorio actual: $(pwd)"
+
+# Cargar NVM
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+# Obtener la ruta de Node.js y npm desde el directorio de NVM del usuario
+NODE_PATH=$NVM_DIR/versions/node/v20.9.0/bin/node
+NPM_PATH=$NVM_DIR/versions/node/v20.9.0/bin/npm
+
+sudo /usr/local/bin/permissions.sh
+
+GIT_WORK_TREE=/var/www/frontbox
+GIT_DIR=/var/repos/frontbox.git
+
+# Actualizar el repositorio Git
+git --work-tree=$GIT_WORK_TREE --git-dir=$GIT_DIR checkout -f
+
+# Cambiar al directorio del proyecto
+cd $GIT_WORK_TREE
+
+# Instalar las dependencias con npm
+$NPM_PATH install
+
+npm run build
+-------------------------------------------------------------------------------
+
+chmod +x post-receive
+
+
+sudo chown -R :gitUsers /var/repos/frontbox.git
+sudo chmod -R 770 /var/repos/frontbox.git
+
+git remote add aydback ssh://jose1xdd@158.101.119.240/var/repos/box-backend.git
+
+git remote add aydfront ssh://juliana@129.153.184.66/var/repos/frontbox.git
+
+EL PRIMER PUSH TIENE QUE SER ASI git push -u aydfront main
+
+
+git push -f aydfront main:main
+git add . && git commit -m update && git push aydback main -f
+git push -f aydback main:main
+
+Agregar al sudo visudo 
+
+ALL ALL=(ALL) NOPASSWD: /usr/local/bin/permissions.sh
+
+%gitUsers ALL=(ALL) NOPASSWD: /usr/local/bin/permissions.sh
+
+Luego agregar el script de permisos  que esta en un txt 
+
+chmod +x nombre_del_script.sh -> ejecutable
+copiarlo al path
+sudo cp nombre_del_script.sh /usr/local/bin/
+
+-------------------------------------------------

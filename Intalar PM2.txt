@@ -1,0 +1,67 @@
+PM2 es un gestor de procesos para aplicaciones Node.js que simplifica la administración de aplicaciones Node.js en un entorno de producción. Aquí te dejo una guía básica para instalar PM2 y comenzar a usarlo:
+
+Instalación de PM2:
+Instalar Node.js:
+Antes de instalar PM2, asegúrate de tener Node.js instalado en tu sistema. Puedes instalar Node.js utilizando el siguiente comando en Ubuntu:
+
+INSTALAR NVM PARA INSTALAR NODE IMPORTANTISIMO
+
+
+Instalar npm (Node Package Manager):
+Junto con Node.js, también necesitarás npm. Puedes instalar npm con el siguiente comando:
+
+bash
+Copy code
+sudo apt install npm
+
+
+Instalar PM2:
+Usa npm para instalar PM2 globalmente:
+
+bash
+Copy code
+npm install -g pm2
+Uso básico de PM2:
+Iniciar una aplicación con PM2:
+Puedes iniciar una aplicación con PM2 usando el siguiente comando (reemplaza app.js con el nombre de tu archivo de aplicación):
+
+bash
+Copy code
+pm2 start app.js
+Esto inicia la aplicación y le asigna automáticamente un ID único.
+
+Listar aplicaciones administradas por PM2:
+Puedes ver la lista de aplicaciones gestionadas por PM2 con el siguiente comando:
+
+bash
+Copy code
+pm2 list
+Esto mostrará información sobre las aplicaciones en ejecución, como el nombre, el ID, el estado, etc.
+
+Detener y reiniciar aplicaciones:
+Puedes detener y reiniciar aplicaciones usando los siguientes comandos:
+
+Detener una aplicación:
+
+bash
+Copy code
+pm2 stop <app_name_or_id>
+Reiniciar una aplicación:
+
+bash
+Copy code
+pm2 restart <app_name_or_id>
+Ver logs de la aplicación:
+Puedes ver los logs de una aplicación con el siguiente comando:
+
+bash
+Copy code
+pm2 logs <app_name_or_id>
+Esto es útil para depurar y monitorear la salida de tu aplicación.
+
+Eliminar una aplicación de PM2:
+Puedes eliminar una aplicación de PM2 con el siguiente comando:
+
+bash
+Copy code
+pm2 delete <app_name_or_id>

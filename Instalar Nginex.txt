@@ -1,0 +1,19 @@
+Actualizar el índice de paquetes:
+sudo apt update
+
+Instalar Nginx:
+sudo apt install nginx
+
+Iniciar el servicio de Nginx:
+sudo systemctl start nginx
+
+Habilitar Nginx para que se inicie automáticamente en el arranque:
+sudo systemctl enable nginx
+
+Verificar el estado de Nginx para asegurarse de que se esté ejecutando:
+sudo systemctl status nginx
+
+
+sudo iptables -I INPUT 6 -m state --state NEW -p tcp --dport 80 -j ACCEPT
+
+sudo netfilter-persistent save

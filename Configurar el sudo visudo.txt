@@ -1,0 +1,25 @@
+Abre el archivo de configuración sudoers en un editor seguro:
+
+sudo visudo
+comentar sudoers
+
+reemplaza:
+Defaults        use_pty
+
+
+root    ALL=(ALL:ALL) ALL
+
+# Members of the admin group may gain root privileges
+%admin ALL=(ALL) ALL
+
+# Allow members of group sudo to execute any command
+%sudo   ALL=(ALL:ALL) ALL
+
+ubuntu ALL=(ALL:ALL) /bin/su
+
+ALL ALL=(ALL) NOPASSWD: /usr/local/bin/permissions.sh
+
+%gitUsers ALL=(ALL) NOPASSWD: /usr/local/bin/permissions.sh
+
+ponerle clave al sudo
+sudo passwd ubuntu

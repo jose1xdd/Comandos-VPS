@@ -1,0 +1,82 @@
+
+sudo addgroup --force-badname gitUsers
+
+#!/bin/bash
+
+# Verifica si se proporciona un nombre de usuario como argumento
+if [ -z "$1" ]; then
+    echo "Uso: $0 <nombre_de_usuario>"
+    exit 1
+fi
+
+# Genera una contraseña aleatoria
+password=$(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c12)
+
+# Crea el usuario y establece la contraseña
+sudo useradd -m -s /bin/bash "$1"
+echo "$1:$password" | sudo chpasswd
+
+# Agrega el usuario al grupo "gitUsers"
+sudo usermod -aG gitUsers "$1"
+
+# Reinicia el servicio SSH para aplicar las restricciones
+sudo service ssh restart
+
+echo "Usuario $1 creado exitosamente y agregado al grupo gitUsers."
+echo "Contraseña generada: $password"
+---------------------------------------------------------------------------
+chmod +x nombre_del_script.sh -> ejecutable
+copiarlo al path
+sudo cp nombre_del_script.sh /usr/local/bin/
+nvm use 20.9
+----------------------------------------------------------------------------
+Base de Datos AYD
+admin : 4d93d5985614b82da4db600ab49c144
+backend: 1b7e4338f83f6c661f74e8
+db.createUser({ user: "admin", pwd: "4d93d5985614b82da4db600ab49c144", roles: ["root"] })
+
+use mi_base_de_datos
+
+db.createUser({
+  user: "admin",
+  pwd: "4d93d5985614b82da4db600ab49c144",
+  roles: [{ role: "userAdminAnyDatabase", db: "admin" }]
+})
+
+db.createUser({
+  user: 'backend',
+  pwd: '1b7e4338f83f6c661f74e8',
+  roles: [
+    { role: 'readWrite', db: 'box' }
+  ]
+})
+
+sudo iptables -I INPUT 6 -m state --state NEW -p tcp --dport 27017 -j ACCEPT
+mongodb://admin:4d93d5985614b82da4db600ab49c144@129.213.50.11:27017/?authSource=admin
+mongodb://backend:1b7e4338f83f6c661f74e8@129.213.50.11:27017/box?authSource=admin
+
+Configs de mongo para funcionen los roles ->
+
+storage:
+  dbPath: /var/lib/mongodb
+#  engine:
+#  wiredTiger:
+
+# where to write logging data.
+systemLog:
+  destination: file
+  logAppend: true
+  path: /var/log/mongodb/mongod.log
+
+# network interfaces
+net:
+  port: 27017
+  bindIp: 0.0.0.0
+
+
+# how the process runs
+processManagement:
+  timeZoneInfo: /usr/share/zoneinfo
+
+security:
+  authorization: enabled

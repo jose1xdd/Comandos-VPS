@@ -1,0 +1,19 @@
+Crea un archivo común para las claves SSH:
+
+sudo touch /etc/ssh/shared_authorized_keys
+sudo chmod 644 /etc/ssh/shared_authorized_keys
+
+Agrega las claves al archivo compartido:
+
+Edita el archivo /etc/ssh/shared_authorized_keys y agrega todas las claves públicas de los usuarios.
+
+sudo nano /etc/ssh/shared_authorized_keys
+
+Configura SSH para usar el archivo compartido:
+
+Edita el archivo de configuración de SSH para indicar que debe usar el archivo compartido.
+
+sudo nano /etc/ssh/sshd_config
+AuthorizedKeysFile /etc/ssh/shared_authorized_keys
+PubkeyAuthentication yes
+sudo systemctl restart ssh

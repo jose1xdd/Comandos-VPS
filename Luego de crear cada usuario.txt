@@ -1,0 +1,16 @@
+# Install NVM (Node Version Manager)
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+
+source ~/.bashrc
+
+
+# Install Node.js 20
+nvm install 20
+
+# Use Node.js 20 as the default version
+nvm alias default 20
+
+# Update npm to the latest version
+npm install -g npm
+
+echo "Installation completed!"

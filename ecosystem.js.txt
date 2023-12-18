@@ -1,0 +1,29 @@
+module.exports = {
+  apps: [
+    {
+      name: 'box',
+      script: '/var/www/box-backend/dist/app.js',
+      watch: '/var/www/frontbox/dist',
+      env_file: '/var/www/envs/.env',
+    },
+  ],
+};
+
+---------------------------------------------------------------------
+module.exports = {
+  apps: [
+    {
+      name: 'prod-control-frontend',
+      script: 'npm',
+      args: 'run start',
+      instances: 1,
+      autorestart: true,
+      watch: '/var/www/frontbox/dist', // Ruta para observar cambios,
+      cwd: '/var/www/frontbox',  // Ruta al directorio deseado
+    },
+  ],
+};
+
+
+pm2 start 'npm run start' --name prod-control-frontend --namespace control-frontend --env var/www/envs/.env
+

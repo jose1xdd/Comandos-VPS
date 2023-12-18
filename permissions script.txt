@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Ruta de la carpeta del repositorio
+repo_path="/var/www/frontbox"
+
+# Verificar si la carpeta del repositorio existe
+if [ -d "$repo_path" ]; then
+    # Cambiar propietario y grupo de la carpeta
+    sudo chown -R :gitUsers "$repo_path"
+
+    # Dar todos los permisos al grupo gitUsers
+    sudo chmod -R 770 "$repo_path"
+    sudo chown -R :gitUsers /var/repos/frontbox.git
+    echo "Permisos concedidos a gitUsers en $repo_path."
+else
+    echo "La carpeta del repositorio no existe o no es un directorio."
+fi

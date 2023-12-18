@@ -1,0 +1,45 @@
+iniciar apache : sudo systemctl start apache2
+verificar estado : sudo systemctl status apache2
+sudo systemctl enable apache2
+./mvnw spring-boot:run
+mysql -h 172.16.0.173 -P 3306 -u admin -p
+sudo iptables -I INPUT 6 -m state --state NEW -p tcp --dport 80 -j ACCEPT
+sudo netfilter-persistent save
+ssh -i .\ssh-key-2023-06-12.key ubuntu@144.22.63.128
+
+
+docker run -d -p 8080:80 --name contenedor1 nombre_imagen_contenedor1
+
+docker start nombre_contenedor
+
+sudo docker run -d -p 8080:8080 --name backendDocker backend
+
+sudo docker ps -a
+sudo docker images
+sudo docker build -t backend .
+docker exec -it <nombre_contenedor> /bin/bash
+docker save -o front.tar
+sudo docker logs backendDocker
+sudo docker exec -it backendDocker bash
+
+git checkout -b mi_rama origin/rama_remota
+mvn spring-boot:run
+-----------------------------------------------------------
+/ideaNegocio
+/ideaPlanteada
+
+https://docs.oracle.com/es-ww/iaas/developer-tutorials/tutorials/apache-on-ubuntu/01oci-ubuntu-apache-summary.htm
+xclip -sel clip < ~/.ssh/id_ed25519.pub
+------------------------------------------------------------------------------------------------------------------
+Get-ChildItem -Recurse -File -Include *.jsx, *.js | ForEach-Object {
+    if (-not $_.FullName.Contains("node_modules")) {
+        $content = Get-Content $_.FullName -Raw
+        $newContent = $content -replace '144.22.32.132', '144.22.63.128'
+        Set-Content $_.FullName -Value $newContent
+    }
+}
+---------------------------------------------------------------------------------------------------------------------
+mvnw spring-boot:run -> windows
+mvn spring-boot:run
+SET GLOBAL max_allowed_packet = 10485760;
+
